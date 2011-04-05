@@ -1,0 +1,32 @@
+requirements (Earlier versions may or may not work):
+Espeak - tested with version 1.45.03. This might be the hardest thing to get going.
+Lua, tested with 5.1.4.
+
+Compile, and run adapter -D to put it into daemon mode. If it works, It should say something like:
+Adapter ready. con 1
+
+After that, You're ready to go. The default keybindings should be
+mostly familiar to windows screen reader users, with a few exceptions, such as control being used for the modifier instead of insert or caps lock.
+
+Control n - read the last line of the buffer. This isn't very useful in a shell, because it will read the prompt.
+control u, control i, control o - read previous, current, and next line.
+control j, k and l - previous, current, next word.
+alt s, d, f - previous, current, next character. Alt used to avoid conflicts with control d.
+control t - bypass.
+control f12 - read time and date.
+alt r - read clipboard.
+alt c - copy current line (whichever line your reading cursor is on), excluding the newline. If the reading cursor
+is on the last line of the buffer, and that line has no newline, it will leave off the last character.
+alt p - paste.
+f4 - end of buffer.
+f6 - toggle TTY clicks on/off.
+Compose/applications key - enable/disable the adapter for the current console. On most keyboards,
+this key is to the left of the right control key.
+A high beep means it's disabled. In this state, the only key that will work is compose. The clicks are also disabled.
+When re-enabled, the adapter rereads its configuration file. This is a good way to add new keybindings.
+control enter - silence speech.
+Control r - continuous read by line. Sometimes it doesn't read anything, silence and try again.
+f12 - parameter. The only one supported is r for rate - press f12, r, and a number
+between 80 and 1000. Anything out of range will be adjusted.
+The maximum rate depends on your version of espeak. 1.45 has the fastest speeds.
+If you enter a value that's too large, espeak will just use its fastest speed.
