@@ -4,6 +4,13 @@ This might be the hardest thing to get going.
 
 Lua, tested with 5.1.4.
 
+Lua BitOp, available from:
+http://bitop.luajit.org/
+If it's not available in your distribution, just extract and run make install as root.
+If you don't want to install it system wide for some reason,
+running make and copying adapter.so into the adapter directory will be enough
+to get it to run.
+
 Compile, and run adapter -D to put it into daemon mode.
 If it works, It should say something like:
 Adapter ready. con 1

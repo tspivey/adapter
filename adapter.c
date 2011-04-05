@@ -83,7 +83,6 @@ daemonize = 1;
 l = luaL_newstate();
 luaL_openlibs(l);
 luaopen_acs(l);
-luaopen_bit(l);
 if(acs_open("/dev/acsint") < 0) {
 fprintf(stderr, "cannot open the driver /dev/acsint;\n\
 did you make this character special major 11,\n\

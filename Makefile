@@ -5,7 +5,7 @@ CFLAGS += -g
 CFLAGS += -I${ACSINT}
 LDLIBS = -lespeak -llua
 
-SRCS = adapter.c acsbridge.c acslua.c bit.c
+SRCS = adapter.c acsbridge.c acslua.c
 OBJS = ${SRCS:.c=.o}
 
 all: adapter

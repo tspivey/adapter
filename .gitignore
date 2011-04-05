@@ -1,2 +1,3 @@
 adapter
 *.o
+*.so
