@@ -45,8 +45,11 @@ This is a good way to add new keybindings.
 control enter - silence speech.
 Control r - continuous read by line.
 Sometimes it doesn't read anything, silence and try again.
-f12 - parameter. The only one supported is r for rate - press f12, r, and a number
-between 80 and 1000. Anything out of range will be adjusted.
+F12 - parameter.
+After pressing F12, press:
+e - toggle character echo.
+r - rate. Enter a number between 80 and 1000.
+Anything out of range will be adjusted.
 The maximum rate depends on your version of espeak.
 1.45 has the fastest speeds.
 If you enter a value that's too large, espeak will just use its fastest speed.

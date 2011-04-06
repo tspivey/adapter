@@ -1,6 +1,7 @@
 bit = require "bit"
 require "constants"
 disabled=false
+echoing = false
 clipboard = {}
 require "functions"
 f1=59
@@ -80,8 +81,8 @@ end -- if
 end
 register_custom_command("parameter", false, function()
 acs.clicks("click", false)
-key, ss = acs.get1key()
-if key == ck.KEY_R then
+char = acs.get1char()
+if char == "r" then
 acs.say("rate", 0)
 local status, str = acs.keystring()
 if status == nil or tonumber(str) == nil then
@@ -93,6 +94,9 @@ if rate < 80 then rate = 80 end
 if rate > 1000 then rate = 1000 end
 acs.espeak_SetParameter(1, rate, 0)
 acs.clicks("tone", true)
+elseif char == "e" then
+echoing = not echoing
+acs.clicks("tone", echoing)
 else -- unknown key
 acs.clicks("bell",false)
 end -- if
@@ -101,4 +105,13 @@ end) -- parameter
 reg(127, SS_PLAIN, disable)
 -- control+enter silences
 reg(28, SS_CTRL, acs.silence)
+function morechars(echo, c)
+if not echoing or echo ~= 1 then return end
+print("echo "..c)
+s = acs.getpunc(c)
+if s == "" then
+s = string.char(c)
+end
+acs.say(s, 1)
+end -- morechars
 register()

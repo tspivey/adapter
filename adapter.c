@@ -62,6 +62,14 @@ lua_call(l, 1, 0);
 sprintf(fgs, "con %d", acs_fgc);
 say(fgs, 1);
 }
+void morechars(int echo, unsigned int c)
+{
+lua_getfield(l, LUA_GLOBALSINDEX, "morechars");
+if (lua_isnil(l, 1)) return;
+lua_pushnumber(l, echo);
+lua_pushnumber(l, c);
+lua_call(l, 2, 0);
+}
 
 int
 main(int argc, char **argv)
@@ -92,6 +100,7 @@ exit(1);
 }
 acs_key_h = keystroke;
 acs_fgc_h = conswitch;
+acs_more_h = morechars;
 acs_reset_configure();
 if (daemonize) {
 // don't chdir or close fds. I don't have the config file path stored.
