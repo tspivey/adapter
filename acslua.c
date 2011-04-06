@@ -288,6 +288,19 @@ lua_pushinteger(l, key);
 lua_pushinteger(l, ss);
 return 2;
 }
+static int get1char(lua_State *l)
+{
+achar *p;
+char buf[2];
+if (acs_get1char(p) == -1) {
+lua_pushnil(l);
+}
+else {
+sprintf(buf, "%c", *p);
+lua_pushstring(l, buf);
+}
+return 1;
+}
 
 static int wrap_espeak_SetParameter(lua_State *l)
 {
@@ -302,6 +315,19 @@ static int wrap_contread(lua_State *l)
 {
 	contread();
 	return 0;
+}
+static int wrap_acs_getpunc(lua_State *l)
+{
+achar *p;
+int i;
+i = luaL_checkint(l, 1);
+p = acs_getpunc((achar)i);
+if (!p) {
+lua_pushstring(l, "");
+} else {
+lua_pushstring(l, p);
+}
+return 1;
 }
 
 static const struct luaL_Reg acs[] = {
@@ -337,8 +363,10 @@ static const struct luaL_Reg acs[] = {
 	{ "getbuf", getbuf, },
 	{ "injectstring", wrap_acs_injectstring, },
 	{ "get1key", get1key, },
+	{ "get1char", get1char, },
 	{ "espeak_SetParameter", wrap_espeak_SetParameter, },
 	{ "contread", wrap_contread, },
+{"getpunc", wrap_acs_getpunc, },
 	{ NULL, NULL },
 };
 
