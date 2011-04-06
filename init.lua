@@ -107,7 +107,6 @@ reg(127, SS_PLAIN, disable)
 reg(28, SS_CTRL, acs.silence)
 function morechars(echo, c)
 if not echoing or echo ~= 1 then return end
-print("echo "..c)
 s = acs.getpunc(c)
 if s == "" then
 s = string.char(c)
