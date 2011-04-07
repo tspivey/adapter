@@ -2,6 +2,7 @@ bit = require "bit"
 require "constants"
 disabled=false
 echoing = false
+screenmode=false
 clipboard = {}
 require "functions"
 f1=59
@@ -97,6 +98,10 @@ acs.clicks("tone", true)
 elseif char == "e" then
 echoing = not echoing
 acs.clicks("tone", echoing)
+elseif char == "s" then
+screenmode = not screenmode
+acs.screenmode(screenmode)
+acs.clicks("tone", screenmode)
 else -- unknown key
 acs.clicks("bell",false)
 end -- if

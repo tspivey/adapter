@@ -330,6 +330,17 @@ lua_pushstring(l, p);
 return 1;
 }
 
+static int wrap_acs_screenmode(lua_State *l)
+{
+luaL_checkany(l, 1);
+int enabled = lua_toboolean(l, 1);
+acs_screenmode(enabled);
+acs_refresh();
+if (rb->cursor == NULL)
+rb->cursor = rb->v_cursor;
+return 0;
+}
+
 static const struct luaL_Reg acs[] = {
 	{ "setkey", setkey, },
 	{ "clicks", clicks, },
@@ -367,6 +378,7 @@ static const struct luaL_Reg acs[] = {
 	{ "espeak_SetParameter", wrap_espeak_SetParameter, },
 	{ "contread", wrap_contread, },
 {"getpunc", wrap_acs_getpunc, },
+{"screenmode", wrap_acs_screenmode},
 	{ NULL, NULL },
 };
 

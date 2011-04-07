@@ -53,3 +53,4 @@ Anything out of range will be adjusted.
 The maximum rate depends on your version of espeak.
 1.45 has the fastest speeds.
 If you enter a value that's too large, espeak will just use its fastest speed.
+s - toggle screen mode.
