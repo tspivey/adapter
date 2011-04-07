@@ -290,13 +290,13 @@ return 2;
 }
 static int get1char(lua_State *l)
 {
-achar *p;
+achar c;
 char buf[2];
-if (acs_get1char(p) == -1) {
+if (acs_get1char(&c) == -1) {
 lua_pushnil(l);
 }
 else {
-sprintf(buf, "%c", *p);
+sprintf(buf, "%c", c);
 lua_pushstring(l, buf);
 }
 return 1;
