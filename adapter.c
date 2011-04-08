@@ -41,6 +41,10 @@ if (ss&ACS_SS_ALT) {
 cmd = acs_getspeechcommand(acs_build_mkcode(key, ACS_SS_ALT));
 }
 }
+if (rb->cursor == NULL) {
+acs_endbuf();
+acs_cursorsync();
+}
 if (cmd) {
 lua_getfield(l, LUA_GLOBALSINDEX, "handle_config");
 lua_pushstring(l, cmd);
