@@ -186,6 +186,7 @@ l = malloc(size+1);
 memset(l, 0, size+1);
 memcpy(l, start, size);
 say(l, 1);
+free(l);
 return;
 error:
 acs_highbeeps();
@@ -205,6 +206,7 @@ l = malloc(size+1);
 memset(l, 0, size+1);
 memcpy(l, start, size);
 say(l, 1);
+free(l);
 return;
 error:
 acs_highbeeps();
