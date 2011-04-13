@@ -24,7 +24,7 @@ static int callback(short *wav, int numsamples, espeak_EVENT *events)
 if (!reading) return 0;
 // We're done reading this, so tell our event loop to keep going with the next thing.
 //Not sure if we can call espeak within its own callback, but it doesn't sound like a good idea.
-if (events->type == 6) {
+if (events->type == espeakEVENT_MSG_TERMINATED) {
 write(pipes[1], "x", 1);
 return 1;
 } //if reading
