@@ -223,7 +223,7 @@ static int wrap_silence (lua_State *l)
 static int wrap_acs_getc(lua_State *l)
 {
 char buf[2];
-achar c = acs_getc();
+char c = acs_getc();
 sprintf(buf, "%c", c);
 lua_pushstring(l, buf);
 return 1;
@@ -243,7 +243,7 @@ return 2;
 
 static int wrap_acs_keystring(lua_State *l)
 {
-achar buf[1024];
+char buf[1024];
 buf[0] = '\0';
 int properties = luaL_optint(l, 1, ACS_KS_DEFAULT);
 if (acs_keystring(buf, 1024, properties) == -1) {
@@ -258,8 +258,8 @@ return 2;
 static int character(lua_State *l)
 {
 char buf[100];
-achar *p;
-achar c;
+char *p;
+char c;
 c = acs_getc();
 p = acs_getpunc(c);
 if (p) {
@@ -290,7 +290,7 @@ return 2;
 }
 static int get1char(lua_State *l)
 {
-achar c;
+char c;
 char buf[2];
 if (acs_get1char(&c) == -1) {
 lua_pushnil(l);
@@ -318,10 +318,10 @@ static int wrap_contread(lua_State *l)
 }
 static int wrap_acs_getpunc(lua_State *l)
 {
-achar *p;
+char *p;
 int i;
 i = luaL_checkint(l, 1);
-p = acs_getpunc((achar)i);
+p = acs_getpunc((char)i);
 if (!p) {
 lua_pushstring(l, "");
 } else {

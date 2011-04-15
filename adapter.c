@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <wchar.h>
 #include <fcntl.h>
 #include <sys/select.h>
 
@@ -164,6 +165,15 @@ reading=0;
 acs_close();
 } // main
 
+void ucsay(uc_type *unicodes, int interrupt)
+{
+/* Flagrant cut-and-paste, because it was quick. */
+if (interrupt) {
+espeak_Cancel();
+}
+espeak_Synth(unicodes, (wcslen(unicodes)+1) * sizeof(uc_type), 0, POS_CHARACTER, 0, espeakCHARS_WCHAR, NULL, NULL);
+}
+
 void say(const char *str, int interrupt)
 {
 if (interrupt) {
@@ -175,17 +185,19 @@ espeak_Synth(str, strlen(str)+1, 0, POS_CHARACTER, 0, 0, NULL, NULL);
 /*Say to the end of the current line. */
 void readline(void)
 {
-char *l;
-unsigned char *start = rb->cursor; //old cursor position
+uc_type *l;
+uc_type *start = rb->cursor; //old cursor position
 int size;
+int ucsize;
 acs_cursorset();
 if (!acs_endline()) goto error;
 acs_cursorsync();
 size=(rb->cursor-start)+1;
-l = malloc(size+1);
-memset(l, 0, size+1);
-memcpy(l, start, size);
-say(l, 1);
+ucsize = size * sizeof(uc_type);
+l = malloc(ucsize + sizeof(uc_type));
+memset(l, 0, ucsize + sizeof(uc_type));
+memcpy(l, start, ucsize);
+ucsay(l, 1);
 free(l);
 return;
 error:
@@ -195,17 +207,19 @@ return;
 /* copypasta from readline */
 void word(void)
 {
-char *l;
-unsigned char *start = rb->cursor; //old cursor position
+uc_type *l;
+uc_type *start = rb->cursor; //old cursor position
 int size;
+int ucsize;
 acs_cursorset();
 if (!acs_endword()) goto error;
 acs_cursorsync();
 size=(rb->cursor-start)+1;
-l = malloc(size+1);
-memset(l, 0, size+1);
-memcpy(l, start, size);
-say(l, 1);
+ucsize = size * sizeof(uc_type);
+l = malloc(ucsize+sizeof(uc_type));
+memset(l, 0, ucsize + sizeof(uc_type));
+memcpy(l, start, ucsize);
+ucsay(l, 1);
 free(l);
 return;
 error:
