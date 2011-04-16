@@ -340,6 +340,15 @@ if (rb->cursor == NULL)
 rb->cursor = rb->v_cursor;
 return 0;
 }
+static int setvoice(lua_State *l) {
+const char *n = luaL_checkstring(l, 1);
+if (espeak_SetVoiceByName(n) != EE_OK) {
+lua_pushboolean(l, 0);
+} else {
+lua_pushboolean(l, 1);
+}
+return 1;
+}
 
 static const struct luaL_Reg acs[] = {
 	{ "setkey", setkey, },
@@ -379,6 +388,7 @@ static const struct luaL_Reg acs[] = {
 	{ "contread", wrap_contread, },
 {"getpunc", wrap_acs_getpunc, },
 {"screenmode", wrap_acs_screenmode},
+{"setvoice", setvoice},
 	{ NULL, NULL },
 };
 

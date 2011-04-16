@@ -95,6 +95,17 @@ if rate < 80 then rate = 80 end
 if rate > 1000 then rate = 1000 end
 acs.espeak_SetParameter(1, rate, 0)
 acs.clicks("tone", true)
+elseif char == "v" then
+local status, voice = acs.keystring()
+if status == nil or voice == "" then
+acs.clicks("bell", false)
+return
+end --invalid input
+if not acs.setvoice(voice) then
+acs.clicks("bell", false)
+else
+acs.clicks("tone", true)
+end
 elseif char == "e" then
 echoing = not echoing
 acs.clicks("tone", echoing)
