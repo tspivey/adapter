@@ -165,13 +165,13 @@ reading=0;
 acs_close();
 } // main
 
-void ucsay(uc_type *unicodes, int interrupt)
+void ucsay(unsigned int *unicodes, int interrupt)
 {
 /* Flagrant cut-and-paste, because it was quick. */
 if (interrupt) {
 espeak_Cancel();
 }
-espeak_Synth(unicodes, (wcslen(unicodes)+1) * sizeof(uc_type), 0, POS_CHARACTER, 0, espeakCHARS_WCHAR, NULL, NULL);
+espeak_Synth(unicodes, (wcslen(unicodes)+1) * sizeof(unsigned int), 0, POS_CHARACTER, 0, espeakCHARS_WCHAR, NULL, NULL);
 }
 
 void say(const char *str, int interrupt)
@@ -185,17 +185,17 @@ espeak_Synth(str, strlen(str)+1, 0, POS_CHARACTER, 0, 0, NULL, NULL);
 /*Say to the end of the current line. */
 void readline(void)
 {
-uc_type *l;
-uc_type *start = rb->cursor; //old cursor position
+unsigned int *l;
+unsigned int *start = rb->cursor; //old cursor position
 int size;
 int ucsize;
 acs_cursorset();
 if (!acs_endline()) goto error;
 acs_cursorsync();
 size=(rb->cursor-start)+1;
-ucsize = size * sizeof(uc_type);
-l = malloc(ucsize + sizeof(uc_type));
-memset(l, 0, ucsize + sizeof(uc_type));
+ucsize = size * sizeof(unsigned int);
+l = malloc(ucsize + sizeof(unsigned int));
+memset(l, 0, ucsize + sizeof(unsigned int));
 memcpy(l, start, ucsize);
 ucsay(l, 1);
 free(l);
@@ -207,17 +207,17 @@ return;
 /* copypasta from readline */
 void word(void)
 {
-uc_type *l;
-uc_type *start = rb->cursor; //old cursor position
+unsigned int *l;
+unsigned int *start = rb->cursor; //old cursor position
 int size;
 int ucsize;
 acs_cursorset();
 if (!acs_endword()) goto error;
 acs_cursorsync();
 size=(rb->cursor-start)+1;
-ucsize = size * sizeof(uc_type);
-l = malloc(ucsize+sizeof(uc_type));
-memset(l, 0, ucsize + sizeof(uc_type));
+ucsize = size * sizeof(unsigned int);
+l = malloc(ucsize+sizeof(unsigned int));
+memset(l, 0, ucsize + sizeof(unsigned int));
 memcpy(l, start, ucsize);
 ucsay(l, 1);
 free(l);
