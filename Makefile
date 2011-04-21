@@ -6,7 +6,7 @@ CFLAGS += -I${ACSINT}
 LDLIBS = -lespeak -llua
 
 INDENT_SRCS = adapter.c acslua.c adapter.h
-SRCS = adapter.c acsbridge.c acslua.c
+SRCS = adapter.c acsbridge.c acslua.c acsbind.c
 OBJS = ${SRCS:.c=.o}
 
 all: adapter
