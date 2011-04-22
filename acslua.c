@@ -13,6 +13,12 @@ say(text, interrupt);
 return 0;
 }
 
+static int say1widechar_l(lua_State *l)
+{
+const unsigned int ourchar = luaL_checknumber(l, 1);
+say1widechar(ourchar);
+return 0;
+}
 static int setkey(lua_State *l)
 {
 int key = luaL_checkint(l, 1);
@@ -259,15 +265,15 @@ static int character(lua_State *l)
 {
 char buf[100];
 char *p;
-char c;
-c = acs_getc();
+unsigned int c;
+c = acs_getc_uc();
 p = acs_getpunc(c);
 if (p) {
 sprintf(buf, "%s", p);
-} else {
-sprintf(buf, "%c", c);
-}
 lua_pushstring(l, buf);
+} else {
+lua_pushnumber(l, c);
+}
 return 1;
 }
 
@@ -378,6 +384,7 @@ static const struct luaL_Reg acs[] = {
 	{ "word", word_l, },
 	{ "configure", test_configure, },
 	{ "say", say_l, },
+	{ "say1widechar", say1widechar_l, },
 	{ "silence", wrap_silence, },
 	{ "getc", wrap_acs_getc, },
 	{ "getbuf", getbuf, },

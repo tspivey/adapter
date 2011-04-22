@@ -182,6 +182,12 @@ espeak_Cancel();
 espeak_Synth(str, strlen(str)+1, 0, POS_CHARACTER, 0, 0, NULL, NULL);
 }
 
+/* Say a single wide (unicode) character: */
+void say1widechar(unsigned int ourchar)
+{
+espeak_Char(ourchar);
+}
+
 /*Say to the end of the current line. */
 void readline(void)
 {

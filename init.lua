@@ -70,7 +70,12 @@ acs.say(clipboard.text, 0)
 end
 end) -- clipboard
 register_custom_command("character", true, function()
-acs.say(acs.char())
+local c = acs.char()
+if type(c) == "number" then
+acs.say1widechar(c)
+else
+acs.say(c)
+end
 end) -- character
 custom_commands.paste = function()
 if clipboard.text == nil or clipboard.text == "" then
